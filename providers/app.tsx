@@ -1,7 +1,8 @@
-import { ReactNode, Suspense } from 'react'
+import { ReactNode } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { AuthProvider } from '@/config/auth'
 import { queryClient } from '@/lib/react-query'
 import { Spinner, Button } from '@/components/Elements'
 
@@ -26,12 +27,12 @@ type AppProviderProps = {
   children: ReactNode
 }
 
-export function AppProvider({ children }: AppProviderProps) {
+export default function AppProvider({ children }: AppProviderProps) {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <QueryClientProvider client={queryClient}>
         {process.env.NODE_ENV !== 'test' && <ReactQueryDevtools />}
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </QueryClientProvider>
     </ErrorBoundary>
   )
