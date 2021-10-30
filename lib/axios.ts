@@ -12,7 +12,7 @@ function authRequestInterceptor(config: AxiosRequestConfig) {
   return config
 }
 
-export const axios = Axios.create({
+const axios = Axios.create({
   baseURL: API_URL,
 })
 
@@ -25,3 +25,5 @@ axios.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+export { axios }
